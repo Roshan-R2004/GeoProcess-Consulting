@@ -1,0 +1,2741 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="GeoProcess Consulting delivers twin flagship solutions: LiDAR powerline vegetation danger-zone analytics and advanced point-cloud classification with precision DTM/DSM bare-earth modeling for global utilities.">
+    <meta name="theme-color" content="#07101a">
+    <title>GeoProcess Consulting | LiDAR Classification, DTM/DSM &amp; Powerline Danger-Zone Analytics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Schema.org Enterprise Metadata -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "GeoProcess Consulting",
+      "url": "https://geoprocessconsulting.site",
+      "logo": "https://geoprocessconsulting.site/brand-mark.svg",
+      "description": "Specialized in Advanced LiDAR Classification, DTM/DSM bare-earth modeling, and Powerline Vegetation Danger-Zone Pruning Analytics.",
+      "serviceType": [
+        "Powerline Vegetation Risk & Danger-Zone Pruning",
+        "Advanced LiDAR Point Cloud Classification",
+        "Bare-Earth DTM & Surface DSM Extraction",
+        "Utility Corridor AI Vectorization",
+        "Enterprise GIS & Web Mapping"
+      ],
+      "areaServed": "Global",
+      "knowsAbout": ["NERC FAC-003", "IEEE 516", "ASPRS Accuracy Standards", "LiDAR DTM DSM", "Powerline Clearance Buffers"]
+    }
+    </script>
+
+    <style>
+        :root {
+            --navy-950: #07101a;
+            --navy-900: #0a1420;
+            --navy-850: #0d1b2a;
+            --navy-800: #10233a;
+            --navy-700: #1c3a5c;
+            --orange: #ff6a2b;
+            --orange-hover: #ff7e47;
+            --orange-dark: #dc4e16;
+            --green: #3fae57;
+            --paper: #f4f7fa;
+            --white: #ffffff;
+            --ink: #0d151e;
+            --muted: #576574;
+            --line: #dde4ea;
+            --line-dark: rgba(255, 255, 255, .1);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-sm: 0 4px 14px rgba(10, 20, 32, .06);
+            --shadow-md: 0 14px 34px rgba(10, 20, 32, .1);
+            --shadow-lg: 0 24px 60px rgba(10, 20, 32, .18);
+            --ease: cubic-bezier(.2, .8, .2, 1);
+            --container: 1240px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .001ms !important;
+            }
+        }
+
+        body {
+            margin: 0;
+            min-width: 320px;
+            overflow-x: hidden;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img,
+        video {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        button,
+        a,
+        input,
+        select,
+        textarea,
+        summary {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+            border: none;
+            background: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: "Archivo Expanded", "IBM Plex Sans", sans-serif;
+            letter-spacing: -.025em;
+            line-height: 1.15;
+            font-weight: 700;
+        }
+
+        .container {
+            width: min(calc(100% - 48px), var(--container));
+            margin-inline: auto;
+        }
+
+        .skip-link {
+            position: fixed;
+            left: 20px;
+            top: -100px;
+            z-index: 9999;
+            padding: 12px 20px;
+            border-radius: 0 0 8px 8px;
+            background: var(--orange);
+            color: var(--navy-950);
+            font-weight: 700;
+            transition: top .2s ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--orange);
+            outline-offset: 3px;
+        }
+
+        /* NAVIGATION */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(7, 16, 26, .94);
+            border-bottom: 1px solid var(--line-dark);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .nav-inner {
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+        }
+
+        .brand-mark .pulse {
+            transform-origin: 32px 32px;
+            animation: radarPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes radarPulse {
+
+            0%,
+            100% {
+                r: 5;
+                opacity: 1;
+            }
+
+            50% {
+                r: 8;
+                opacity: .5;
+            }
+        }
+
+        .brand-name {
+            color: var(--white);
+            font-family: "Archivo Expanded", sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .brand-sub {
+            display: block;
+            margin-top: 4px;
+            color: var(--orange);
+            font: 600 .62rem/1.1 "IBM Plex Mono", monospace;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .nav-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            place-items: center;
+            border: 1px solid var(--line-dark);
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .nav-list {
+            display: flex;
+            align-items: center;
+            gap: 1.7rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-list a {
+            position: relative;
+            display: inline-flex;
+            padding: 8px 0;
+            color: #c0cdd8;
+            font-size: .92rem;
+            font-weight: 500;
+            transition: color .2s ease;
+        }
+
+        .nav-list a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--orange);
+            transition: width .25s var(--ease);
+        }
+
+        .nav-list a:hover,
+        .nav-list a[aria-current="page"] {
+            color: #fff;
+        }
+
+        .nav-list a:hover::after,
+        .nav-list a[aria-current="page"]::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 9px 20px !important;
+            border-radius: var(--radius-sm);
+            background: var(--orange) !important;
+            color: var(--navy-950) !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 14px rgba(255, 106, 43, .3);
+            transition: all .2s var(--ease) !important;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--orange-hover) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 106, 43, .45);
+        }
+
+        /* HERO SLIDER */
+        .hero {
+            position: relative;
+            isolation: isolate;
+            min-height: 680px;
+            height: min(85vh, 840px);
+            overflow: hidden;
+            background: var(--navy-900);
+            color: #fff;
+        }
+
+        .hero-slide-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            align-items: center;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.02);
+            transition: opacity .7s ease, visibility .7s ease, transform 1s var(--ease);
+        }
+
+        .hero-slide.is-active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 1;
+        }
+
+        body:not(.slider-initialized) .hero-slide:first-child {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 1;
+        }
+
+        .hero-slide-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -3;
+            overflow: hidden;
+            transform: scale(1.05);
+            transition: transform 8s ease-out;
+            background: var(--navy-900);
+        }
+
+        .hero-slide-bg img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        .hero-slide.is-active .hero-slide-bg {
+            transform: scale(1);
+        }
+
+        .hero-slide-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            background:
+                linear-gradient(110deg, rgba(7, 16, 26, .98) 0%, rgba(7, 16, 26, .85) 45%, rgba(7, 16, 26, .45) 100%),
+                radial-gradient(circle at 75% 40%, rgba(255, 106, 43, .18), transparent 50%);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(340px, .75fr);
+            align-items: center;
+            gap: 60px;
+            padding-block: 60px 80px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: var(--orange);
+            font: 700 .72rem/1 "IBM Plex Mono", monospace;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 24px;
+            height: 1.5px;
+            background: currentColor;
+        }
+
+        .hero-copy h1,
+        .hero-copy h2 {
+            max-width: 840px;
+            color: #fff;
+            font-size: clamp(2.4rem, 5.2vw, 4.6rem);
+            font-weight: 800;
+        }
+
+        .hero-copy h1 span,
+        .hero-copy h2 span {
+            color: var(--orange);
+        }
+
+        .hero-copy>p {
+            max-width: 650px;
+            margin-top: 24px;
+            color: #cbd8e4;
+            font-size: clamp(1.02rem, 1.35vw, 1.15rem);
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 36px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 52px;
+            padding: 0 26px;
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: .95rem;
+            font-weight: 700;
+            transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s ease;
+        }
+
+        .btn-primary {
+            background: var(--orange);
+            color: var(--navy-950);
+            box-shadow: 0 10px 28px rgba(255, 106, 43, .25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: var(--orange-hover);
+            box-shadow: 0 16px 36px rgba(255, 106, 43, .35);
+        }
+
+        .btn-ghost {
+            border-color: rgba(255, 255, 255, .25);
+            background: rgba(255, 255, 255, .06);
+            color: #fff;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, .14);
+            transform: translateY(-2px);
+        }
+
+        .hero-panel {
+            justify-self: end;
+            width: min(100%, 420px);
+            padding: 28px;
+            border: 1px solid var(--line-dark);
+            border-radius: var(--radius-md);
+            background: rgba(8, 18, 29, .75);
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(20px);
+        }
+
+        .panel-kicker {
+            color: #8da2b6;
+            font: 700 .7rem "IBM Plex Mono", monospace;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .panel-title {
+            margin-top: 8px;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .risk-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .risk-item {
+            display: grid;
+            grid-template-columns: 10px 1fr auto;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 14px;
+            border: 1px solid rgba(255, 255, 255, .07);
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, .04);
+        }
+
+        .risk-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--orange);
+            box-shadow: 0 0 0 4px rgba(255, 106, 43, .16);
+        }
+
+        .risk-item strong {
+            color: #fff;
+            font-size: .88rem;
+            font-weight: 600;
+        }
+
+        .risk-item span {
+            color: #8da2b6;
+            font: 600 .72rem "IBM Plex Mono", monospace;
+        }
+
+        .hero-slider-controls {
+            position: absolute;
+            z-index: 10;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hero-slider-btn {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 50%;
+            background: rgba(7, 16, 26, .75);
+            color: #fff;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all .2s ease;
+        }
+
+        .hero-slider-btn:hover {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: var(--navy-950);
+            transform: translateY(-2px);
+        }
+
+        .hero-dots {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-dot {
+            width: 32px;
+            height: 4px;
+            padding: 0;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, .28);
+            cursor: pointer;
+            transition: width .3s ease, background .3s ease;
+        }
+
+        .hero-dot.is-active {
+            width: 54px;
+            background: var(--orange);
+        }
+
+        /* TRUST BAR & COMPLIANCE RIBBON */
+        .trust-bar {
+            position: relative;
+            z-index: 5;
+            background: var(--navy-850);
+            border-block: 1px solid var(--line-dark);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .trust-item {
+            padding: 26px 24px;
+            border-right: 1px solid var(--line-dark);
+        }
+
+        .trust-item:last-child {
+            border-right: 0;
+        }
+
+        .trust-value {
+            color: var(--orange);
+            font: 800 1.65rem "Archivo Expanded", sans-serif;
+            line-height: 1;
+        }
+
+        .trust-label {
+            margin-top: 6px;
+            color: #b7c7d6;
+            font: 600 .7rem "IBM Plex Mono", monospace;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .compliance-ribbon {
+            background: var(--navy-950);
+            border-bottom: 1px solid var(--line-dark);
+            padding: 14px 0;
+        }
+
+        .compliance-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            color: #8fa2b4;
+            font: 600 .75rem "IBM Plex Mono", monospace;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        .compliance-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .compliance-tag i {
+            color: var(--orange);
+            font-size: .85rem;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 100px 0;
+            background: #fff;
+        }
+
+        .section.alt {
+            background: var(--paper);
+        }
+
+        .section.dark {
+            background: var(--navy-950);
+            color: #fff;
+        }
+
+        .section-head {
+            max-width: 820px;
+            margin: 0 auto 56px;
+            text-align: center;
+        }
+
+        .section-head .eyebrow {
+            justify-content: center;
+        }
+
+        .section-title {
+            color: var(--navy-900);
+            font-size: clamp(2rem, 3.8vw, 3rem);
+        }
+
+        .section.dark .section-title {
+            color: #fff;
+        }
+
+        .section-subtitle {
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        .section.dark .section-subtitle {
+            color: #9bb0c3;
+        }
+
+        /* ABOUT */
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+            gap: 70px;
+            align-items: center;
+        }
+
+        .media-frame {
+            position: relative;
+            padding: 0 0 18px 18px;
+        }
+
+        .media-frame::before {
+            content: "";
+            position: absolute;
+            inset: 18px 0 0 0;
+            border: 2px solid var(--orange);
+            border-radius: var(--radius-md);
+        }
+
+        .media-frame img {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-copy .eyebrow {
+            margin-bottom: 12px;
+        }
+
+        .about-copy h2 {
+            color: var(--navy-900);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+        }
+
+        .about-copy p {
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.75;
+        }
+
+        .about-points {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .about-points li {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            color: var(--navy-700);
+            font-size: .95rem;
+            font-weight: 600;
+        }
+
+        .about-points i {
+            color: var(--orange);
+            font-size: 1.05rem;
+            flex-shrink: 0;
+        }
+
+        /* PROCESS */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+        }
+
+        .process-card {
+            display: flex;
+            flex-direction: column;
+            padding: 24px 20px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: #fff;
+            box-shadow: var(--shadow-sm);
+            transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+        }
+
+        .process-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(255, 106, 43, .4);
+        }
+
+        .process-number {
+            color: var(--orange-dark);
+            font: 700 .75rem "IBM Plex Mono", monospace;
+            letter-spacing: .08em;
+        }
+
+        .process-card h3 {
+            margin-top: 24px;
+            font-size: 1.05rem;
+            color: var(--navy-900);
+        }
+
+        .process-card p {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: .88rem;
+            line-height: 1.55;
+        }
+
+        /* COMBINED FLAGSHIP PARAMETERS SHELL */
+        .parameter-shell {
+            max-width: 1100px;
+            margin-inline: auto;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            background: var(--navy-900);
+            color: #fff;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--line-dark);
+        }
+
+        .parameter-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--line-dark);
+        }
+
+        .parameter-header i {
+            color: var(--orange);
+            font-size: 1.4rem;
+        }
+
+        .parameter-header h3 {
+            color: #fff;
+            font-size: 1.35rem;
+        }
+
+        .param-subhead {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 28px;
+            margin-bottom: 14px;
+            color: var(--orange);
+            font: 700 .8rem "IBM Plex Mono", monospace;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .param-subhead::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .parameter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .parameter {
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, .03);
+            transition: background .2s ease;
+        }
+
+        .parameter:hover {
+            background: rgba(255, 255, 255, .06);
+        }
+
+        .parameter-label {
+            color: var(--orange);
+            font: 600 .7rem "IBM Plex Mono", monospace;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .parameter strong {
+            display: block;
+            margin-top: 8px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .parameter p {
+            margin-top: 8px;
+            color: #a6b8c7;
+            font-size: .84rem;
+            line-height: 1.5;
+        }
+
+        /* DUAL-MODE SIMULATOR WIDGET */
+        .simulator-box {
+            margin-top: 36px;
+            padding: 28px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 106, 43, .3);
+        }
+
+        .sim-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .sim-tabs {
+            display: flex;
+            gap: 8px;
+            background: var(--navy-950);
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, .15);
+        }
+
+        .sim-tab-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font: 600 .75rem "IBM Plex Mono", monospace;
+            color: #8ea2b4;
+            cursor: pointer;
+            transition: all .2s ease;
+            text-transform: uppercase;
+        }
+
+        .sim-tab-btn.active {
+            background: var(--orange);
+            color: var(--navy-950);
+            font-weight: 700;
+        }
+
+        .sim-controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .sim-group label {
+            display: block;
+            color: #cbd8e4;
+            font: 600 .78rem "IBM Plex Mono", monospace;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .sim-select {
+            width: 100%;
+            height: 46px;
+            padding: 0 14px;
+            border-radius: var(--radius-sm);
+            background: var(--navy-950);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .2);
+            font: 500 .9rem "IBM Plex Sans", sans-serif;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .sim-select:focus {
+            border-color: var(--orange);
+        }
+
+        .sim-output-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        .sim-stat {
+            background: rgba(7, 16, 26, .7);
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .sim-stat-label {
+            color: #8ea2b4;
+            font: 600 .68rem "IBM Plex Mono", monospace;
+            text-transform: uppercase;
+        }
+
+        .sim-stat-val {
+            color: var(--orange);
+            font: 700 1.35rem "Archivo Expanded", sans-serif;
+            margin-top: 6px;
+        }
+
+        /* CARDS */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card,
+        .service-card,
+        .project-card,
+        .video-card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: #fff;
+            box-shadow: var(--shadow-sm);
+            transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s ease;
+        }
+
+        .feature-card:hover,
+        .service-card:hover,
+        .project-card:hover,
+        .video-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(255, 106, 43, .4);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: var(--paper);
+        }
+
+        .card-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-body h3 {
+            color: var(--navy-900);
+            font-size: 1.15rem;
+        }
+
+        .card-body p {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: .92rem;
+            line-height: 1.6;
+        }
+
+        .service-card {
+            position: relative;
+        }
+
+        .service-card.featured {
+            border: 2px solid var(--orange);
+        }
+
+        .flag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 2;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: var(--orange);
+            color: var(--navy-950);
+            font: 700 .66rem "IBM Plex Mono", monospace;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        /* VIDEOS SECTION */
+        .video-media-wrapper {
+            position: relative;
+            width: 100%;
+            background: var(--navy-950);
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+        }
+
+        .video-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: var(--navy-950);
+        }
+
+        .video-chip {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(7, 16, 26, 0.85);
+            color: var(--orange);
+            font: 700 .68rem "IBM Plex Mono", monospace;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            pointer-events: none;
+        }
+
+        /* PROJECTS */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 18px 24px 0;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: var(--paper);
+            color: var(--navy-700);
+            font: 600 .68rem "IBM Plex Mono", monospace;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        /* FAQ */
+        .faq-list {
+            max-width: 880px;
+            margin-inline: auto;
+            display: grid;
+            gap: 14px;
+        }
+
+        .faq-item {
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: #fff;
+            overflow: hidden;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .faq-item:hover {
+            border-color: #cbd8e4;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-item summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 22px 26px;
+            cursor: pointer;
+            list-style: none;
+            color: var(--navy-900);
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: "+";
+            color: var(--orange);
+            font: 600 1.5rem "IBM Plex Mono", monospace;
+            line-height: 1;
+            transition: transform .2s ease;
+        }
+
+        .faq-item[open] summary::after {
+            content: "−";
+        }
+
+        .faq-answer {
+            padding: 0 26px 24px;
+            color: var(--muted);
+            font-size: .96rem;
+            line-height: 1.7;
+        }
+
+        .faq-answer strong {
+            color: var(--navy-900);
+        }
+
+        .faq-answer ul {
+            margin: 8px 0 14px 0;
+            padding-left: 20px;
+        }
+
+        .faq-answer li {
+            margin-bottom: 6px;
+        }
+
+        /* CTA & ENTERPRISE AUDIT REQUEST FORM */
+        .cta-container {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 40px;
+            align-items: center;
+            padding: 60px 48px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-850) 100%);
+            border: 1px solid var(--line-dark);
+            color: #fff;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-info h2 {
+            font-size: clamp(2rem, 3.2vw, 2.7rem);
+        }
+
+        .cta-info p {
+            margin-top: 16px;
+            color: #bdcddc;
+            font-size: 1.02rem;
+            line-height: 1.65;
+        }
+
+        .cta-contact-links {
+            display: grid;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .contact-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--line-dark);
+            color: #fff;
+            font: 600 .9rem "IBM Plex Mono", monospace;
+            transition: all .2s ease;
+        }
+
+        .contact-pill i {
+            color: var(--orange);
+            font-size: 1.1rem;
+        }
+
+        .contact-pill:hover {
+            background: rgba(255, 106, 43, .15);
+            border-color: var(--orange);
+            color: #fff;
+        }
+
+        /* AUDIT FORM */
+        .audit-form {
+            background: rgba(7, 16, 26, .85);
+            padding: 32px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, .12);
+            backdrop-filter: blur(12px);
+        }
+
+        .audit-form h3 {
+            font-size: 1.25rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .form-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            color: #8fa2b4;
+            font: 600 .7rem "IBM Plex Mono", monospace;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            height: 44px;
+            padding: 0 12px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .15);
+            color: #fff;
+            font: 500 .9rem "IBM Plex Sans", sans-serif;
+            outline: none;
+            transition: border-color .2s ease;
+        }
+
+        .form-textarea {
+            height: 80px;
+            padding: 10px 12px;
+            resize: vertical;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--orange);
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            margin-top: 14px;
+        }
+
+        /* FOOTER */
+        .site-footer {
+            padding-top: 80px;
+            background: var(--navy-950);
+            color: #fff;
+            border-top: 1px solid var(--line-dark);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 60px;
+        }
+
+        .footer-title {
+            margin-bottom: 20px;
+            color: #fff;
+            font: 700 .78rem "IBM Plex Mono", monospace;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .footer-list {
+            display: grid;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            color: #a8b9c8;
+            font-size: .92rem;
+        }
+
+        .footer-list a {
+            transition: color .2s ease;
+        }
+
+        .footer-list a:hover {
+            color: var(--orange);
+        }
+
+        .footer-bottom {
+            padding: 24px 20px;
+            border-top: 1px solid var(--line-dark);
+            color: #6d8092;
+            text-align: center;
+            font: .75rem "IBM Plex Mono", monospace;
+        }
+
+        /* BACK TO TOP */
+        .back-top {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 900;
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line-dark);
+            border-radius: 50%;
+            background: var(--navy-900);
+            color: #fff;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition: all .25s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+        }
+
+        .back-top:hover {
+            background: var(--orange);
+            color: var(--navy-950);
+            transform: translateY(-3px);
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-width: 1080px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-panel {
+                display: none;
+            }
+
+            .cta-container {
+                grid-template-columns: 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .parameter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 820px) {
+            .nav-inner {
+                min-height: 70px;
+            }
+
+            .nav-toggle {
+                display: grid;
+            }
+
+            .nav-list {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 100%;
+                display: grid;
+                gap: 4px;
+                padding: 16px 24px 24px;
+                background: rgba(7, 16, 26, .98);
+                border-bottom: 1px solid var(--line-dark);
+                transform: translateY(-10px);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: all .25s ease;
+            }
+
+            .nav-list.open {
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+
+            .nav-list a {
+                width: 100%;
+                padding: 10px 0;
+            }
+
+            .nav-list a::after {
+                display: none;
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .trust-item:nth-child(2) {
+                border-right: 0;
+            }
+
+            .trust-item:nth-child(-n+2) {
+                border-bottom: 1px solid var(--line-dark);
+            }
+
+            .about-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sim-controls,
+            .sim-output-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .container {
+                width: min(calc(100% - 32px), var(--container));
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .hero {
+                min-height: 620px;
+                height: 620px;
+            }
+
+            .hero-slide {
+                min-height: 620px;
+            }
+
+            .hero-inner {
+                min-height: 100%;
+                padding-block: 60px 95px;
+                align-content: center;
+            }
+
+            .hero-copy h1,
+            .hero-copy h2 {
+                font-size: clamp(2rem, 9vw, 3rem);
+            }
+
+            .hero-actions .btn,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-points,
+            .parameter-grid,
+            .card-grid,
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .parameter-shell,
+            .cta-container,
+            .audit-form {
+                padding: 24px 18px;
+            }
+
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-item {
+                border-right: 0 !important;
+                border-bottom: 1px solid var(--line-dark);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- NAVIGATION -->
+    <header class="site-nav">
+        <div class="container nav-inner">
+            <a class="brand" href="#" aria-label="GeoProcess Consulting Home">
+                <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+                    <circle cx="32" cy="32" r="28" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="3" />
+                    <circle cx="32" cy="32" r="17" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="3" />
+                    <circle class="pulse" cx="32" cy="32" r="5" fill="#ff6a2b" />
+                </svg>
+                <span>
+                    <span class="brand-name">GeoProcess Consulting</span>
+                    <span class="brand-sub">Your Data. Processed &amp; To Perfection.</span>
+                </span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false"
+                aria-controls="primary-nav">
+                <i class="fa-solid fa-bars" aria-hidden="true"></i>
+            </button>
+
+            <nav id="primary-nav" aria-label="Primary navigation">
+                <ul class="nav-list">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#params">Parameters</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#videos">Videos</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a class="nav-cta" href="#contact">Request Audit</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <!-- HERO SLIDER -->
+        <section class="hero" id="hero-slider" aria-label="Featured Capabilities Carousel">
+            <div class="hero-slide-track">
+                <!-- Slide 1 -->
+                <article class="hero-slide is-active" aria-hidden="false">
+                    <div class="hero-slide-bg" aria-hidden="true">
+                        <img src="powerline-new.png" alt="" fetchpriority="high" decoding="async">
+                    </div>
+                    <div class="hero-slide-overlay" aria-hidden="true"></div>
+                    <div class="container hero-inner">
+                        <div class="hero-copy">
+                            <div class="eyebrow">Flagship 01 · Powerline Danger-Zone Analytics</div>
+                            <h1>Powerline vegetation <span>risk classification.</span></h1>
+                            <p>
+                                LiDAR-classified vegetation encroachment against clearance parameters,
+                                growth-rate buffers and fall-zone risk — identified and mitigated before it causes an
+                                outage.
+                            </p>
+                            <div class="hero-actions">
+                                <a class="btn btn-primary" href="#params">
+                                    Engineering Parameters
+                                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-ghost" href="#projects">View Case Studies</a>
+                            </div>
+                        </div>
+
+                        <aside class="hero-panel" aria-label="Vegetation risk metrics">
+                            <div class="panel-kicker">Flagship 01 / Vegetation Risk</div>
+                            <h2 class="panel-title">Four signals. One operational decision.</h2>
+                            <div class="risk-list">
+                                <div class="risk-item"><span class="risk-dot"></span><strong>Clearance
+                                        distance</strong><span>01</span></div>
+                                <div class="risk-item"><span class="risk-dot"></span><strong>Growth-rate
+                                        buffer</strong><span>02</span></div>
+                                <div class="risk-item"><span class="risk-dot"></span><strong>Species risk
+                                        class</strong><span>03</span></div>
+                                <div class="risk-item"><span class="risk-dot"></span><strong>Fall-zone
+                                        radius</strong><span>04</span></div>
+                            </div>
+                        </aside>
+                    </div>
+                </article>
+
+                <!-- Slide 2 -->
+                <article class="hero-slide" aria-hidden="true">
+                    <div class="hero-slide-bg" aria-hidden="true">
+                        <img src="advanced-classification.jpg" alt="" loading="lazy" decoding="async">
+                    </div>
+                    <div class="hero-slide-overlay" aria-hidden="true"></div>
+                    <div class="container hero-inner">
+                        <div class="hero-copy">
+                            <div class="eyebrow">Flagship 02 · Advanced Classification &amp; DTM/DSM</div>
+                            <h2>Turn raw LiDAR into <span>structured intelligence.</span></h2>
+                            <p>
+                                Automated point-cloud classification for ground, vegetation, structures and utility
+                                assets, tuned to your corridor, DTM bare-earth modeling, and downstream CAD/GIS
+                                workflows.
+                            </p>
+                            <div class="hero-actions">
+                                <a class="btn btn-primary" href="#services">
+                                    Explore Classification
+                                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-ghost" href="#projects">View Case Studies</a>
+                            </div>
+                        </div>
+
+                        <aside class="hero-panel" aria-label="Point cloud feature extraction">
+                            <div class="panel-kicker">Flagship 02 / Point Cloud &amp; DTM</div>
+                            <h3 class="panel-title">From 3D returns to usable asset layers.</h3>
+                            <div class="risk-list">
+                                <div class="risk-item"><span class="risk-dot"></span><strong>Ground
+                                        (DTM)</strong><span>01</span></div>
+                                <div class="risk-item"><span class="risk-dot"></span><strong>Canopy
+                                        (DSM)</strong><span>02</span></div>
+                                <div class="risk-item"><span class="risk-dot"></span><strong>3D
+                                        Buildings</strong><span>03</span></div>
+                                <div class="risk-item"><span class="risk-dot"></span><strong>Utility
+                                        Assets</strong><span>04</span></div>
+                            </div>
+                        </aside>
+                    </div>
+                </article>
+
+                <!-- Slide 3 -->
+                <article class="hero-slide" aria-hidden="true">
+                    <div class="hero-slide-bg" aria-hidden="true">
+                        <img src="2-new.jpeg" alt="" loading="lazy" decoding="async">
+                    </div>
+                    <div class="hero-slide-overlay" aria-hidden="true"></div>
+                    <div class="container hero-inner">
+                        <div class="hero-copy">
+                            <div class="eyebrow">Enterprise GIS · Analytics</div>
+                            <h2>Spatial data built for <span>mission-critical decisions.</span></h2>
+                            <p>
+                                High-precision GIS, UAV photogrammetry and DTM/DSM workflows that connect field
+                                observations, deep spatial analysis, and engineering-ready deliverables.
+                            </p>
+                            <div class="hero-actions">
+                                <a class="btn btn-primary" href="#services">
+                                    Explore GIS Solutions
+                                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-ghost" href="#projects">View Case Studies</a>
+                            </div>
+                        </div>
+
+                        <aside class="hero-panel" aria-label="Enterprise GIS outputs">
+                            <div class="panel-kicker">Core System / Enterprise GIS</div>
+                            <h3 class="panel-title">Connected spatial workflows.</h3>
+                            <div class="risk-list">
+                                <div class="risk-item"><span class="risk-dot"></span><strong>Spatial
+                                        databases</strong><span>01</span></div>
+                                <div class="risk-item"><span class="risk-dot"></span><strong>Web
+                                        mapping</strong><span>02</span></div>
+                                <div class="risk-item"><span class="risk-dot"></span><strong>DTM /
+                                        DSM</strong><span>03</span></div>
+                                <div class="risk-item"><span class="risk-dot"></span><strong>CAD / BIM
+                                        outputs</strong><span>04</span></div>
+                            </div>
+                        </aside>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Controls -->
+            <div class="hero-slider-controls">
+                <button class="hero-slider-btn hero-prev" type="button" aria-label="Previous Slide">
+                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <div class="hero-dots" role="tablist" aria-label="Slider Pagination">
+                    <button class="hero-dot is-active" type="button" role="tab" aria-selected="true"
+                        aria-label="Slide 1"></button>
+                    <button class="hero-dot" type="button" role="tab" aria-selected="false"
+                        aria-label="Slide 2"></button>
+                    <button class="hero-dot" type="button" role="tab" aria-selected="false"
+                        aria-label="Slide 3"></button>
+                </div>
+                <button class="hero-slider-btn hero-next" type="button" aria-label="Next Slide">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- TRUST BAR -->
+        <section class="trust-bar" aria-label="Core capabilities">
+            <div class="container trust-grid">
+                <div class="trust-item">
+                    <div class="trust-value">LiDAR</div>
+                    <div class="trust-label">3D point-cloud intelligence</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-value">GIS</div>
+                    <div class="trust-label">Enterprise spatial systems</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-value">DTM/DSM</div>
+                    <div class="trust-label">Sub-5cm Bare Earth &amp; Canopy</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-value">CAD/BIM</div>
+                    <div class="trust-label">Engineering-ready models</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STANDARDS COMPLIANCE RIBBON -->
+        <div class="compliance-ribbon" aria-label="Compliance Standards">
+            <div class="container compliance-inner">
+                <span class="compliance-tag"><i class="fa-solid fa-shield-halved"></i> NERC FAC-003-4 Standard</span>
+                <span class="compliance-tag"><i class="fa-solid fa-bolt"></i> IEEE 516 / IEEE 738 Clearance</span>
+                <span class="compliance-tag"><i class="fa-solid fa-circle-check"></i> ASPRS Positional Accuracy</span>
+                <span class="compliance-tag"><i class="fa-solid fa-database"></i> ISO 9001 Geospatial QA</span>
+            </div>
+        </div>
+
+        <!-- ABOUT -->
+        <section class="section" id="about">
+            <div class="container about-grid">
+                <div class="media-frame">
+                    <img src="about-team.jpg" alt="GeoProcess Consulting geospatial analytics team at work"
+                        loading="lazy">
+                </div>
+                <div class="about-copy">
+                    <div class="eyebrow">About the Company</div>
+                    <h2>Engineered spatial data that drives decisive action.</h2>
+                    <p>
+                        At GeoProcess Consulting, we transform raw point clouds and aerial survey data into
+                        high-precision, actionable operational intelligence. We specialize in two interconnected
+                        flagship domains:
+                        <strong>LiDAR-based powerline vegetation risk classification &amp; danger-zone pruning
+                            analytics</strong> and
+                        <strong>Advanced automated point-cloud classification with sub-centimeter DTM/DSM bare-earth
+                            modeling</strong>.
+                    </p>
+                    <p>
+                        By combining automated AI feature extraction with strict ASPRS accuracy standards, our
+                        engineering team eliminates the guesswork from infrastructure and corridor management—empowering
+                        electric utilities, forestry planners, and civil engineering leaders worldwide.
+                    </p>
+                    <ul class="about-points">
+                        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Danger-Zone Pruning Analytics
+                        </li>
+                        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> AI Automated Classification</li>
+                        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> High-Precision DTM / DSM</li>
+                        <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Engineering-Ready GIS &amp; CAD
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESS -->
+        <section class="section alt" id="process">
+            <div class="container">
+                <div class="section-head">
+                    <div class="eyebrow">End-to-End Workflow</div>
+                    <h2 class="section-title">From raw laser returns to actionable field orders.</h2>
+                    <p class="section-subtitle">A controlled, 6-stage engineering process ensuring maximum precision.
+                    </p>
+                </div>
+                <div class="process-grid">
+                    <article class="process-card">
+                        <span class="process-number">01 / SCOPE</span>
+                        <h3>Corridor Scoping</h3>
+                        <p>Define corridor extents, clearance standards, and coordinate system requirements.</p>
+                    </article>
+                    <article class="process-card">
+                        <span class="process-number">02 / CAPTURE</span>
+                        <h3>Data Acquisition</h3>
+                        <p>High-density LiDAR and multispectral capture via UAV, aerial, or mobile platforms.</p>
+                    </article>
+                    <article class="process-card">
+                        <span class="process-number">03 / CLASSIFY</span>
+                        <h3>Point-Cloud Class</h3>
+                        <p>Segment ground, canopy, towers, and conductors using automated AI pipelines.</p>
+                    </article>
+                    <article class="process-card">
+                        <span class="process-number">04 / ANALYZE</span>
+                        <h3>Risk &amp; Surface Modeling</h3>
+                        <p>Compute 3D proximity, growth buffers, hazard fall arcs, and bare-earth DTM grids.</p>
+                    </article>
+                    <article class="process-card">
+                        <span class="process-number">05 / VALIDATE</span>
+                        <h3>QA &amp; Verification</h3>
+                        <p>Review danger-zone flags and elevation surfaces with utility specialists.</p>
+                    </article>
+                    <article class="process-card">
+                        <span class="process-number">06 / DELIVER</span>
+                        <h3>Handoff &amp; Export</h3>
+                        <p>Export directly to Enterprise GIS, work order management tools, and CAD/BIM.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMBINED FLAGSHIP PARAMETERS & DUAL SIMULATOR -->
+        <section class="section" id="params">
+            <div class="container">
+                <div class="section-head">
+                    <div class="eyebrow">Engineering Specifications</div>
+                    <h2 class="section-title">Dual Flagship Parameters</h2>
+                    <p class="section-subtitle">Configurable inputs driving automated danger-zone pruning work orders
+                        and precision DTM/DSM terrain models.</p>
+                </div>
+
+                <div class="parameter-shell">
+                    <div class="parameter-header">
+                        <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                        <h3>Classification &amp; Processing Inputs</h3>
+                    </div>
+
+                    <!-- Flagship 1: Danger-Zone Parameters -->
+                    <div class="param-subhead">
+                        <i class="fa-solid fa-bolt"></i> Flagship 01 · Powerline Vegetation &amp; Danger-Zone Risk
+                    </div>
+                    <div class="parameter-grid">
+                        <article class="parameter">
+                            <span class="parameter-label">Clearance Distance</span>
+                            <strong>Line-Voltage Specific</strong>
+                            <p>Radial 3D buffer envelope from conductor sag curve to surrounding canopy returns.</p>
+                        </article>
+                        <article class="parameter">
+                            <span class="parameter-label">Growth-Rate Buffer</span>
+                            <strong>Species-Informed</strong>
+                            <p>Predictive growth modeled across seasonal inspection intervals to prevent encroachments.
+                            </p>
+                        </article>
+                        <article class="parameter">
+                            <span class="parameter-label">Species Risk Class</span>
+                            <strong>Structural Brittleness</strong>
+                            <p>Weighted scoring based on tree failure mechanics, rot susceptibility, and aggressive
+                                growth.</p>
+                        </article>
+                        <article class="parameter">
+                            <span class="parameter-label">Fall-Zone Radius</span>
+                            <strong>Height-to-Line Arc</strong>
+                            <p>Identifies tall off-corridor hazard trees that can strike conductors if felled or
+                                windthrown.</p>
+                        </article>
+                    </div>
+
+                    <!-- Flagship 2: Advanced LiDAR, DTM & DSM Parameters -->
+                    <div class="param-subhead">
+                        <i class="fa-solid fa-layer-group"></i> Flagship 02 · Advanced LiDAR Classification &amp;
+                        DTM/DSM Surfaces
+                    </div>
+                    <div class="parameter-grid">
+                        <article class="parameter">
+                            <span class="parameter-label">ASPRS Class 2 Ground</span>
+                            <strong>Bare-Earth DTM Filtering</strong>
+                            <p>Cloth simulation filtering (CSF) &amp; TIN densification isolating bare earth through
+                                thick canopies.</p>
+                        </article>
+                        <article class="parameter">
+                            <span class="parameter-label">ASPRS Class 3, 4, 5</span>
+                            <strong>Canopy Stratification</strong>
+                            <p>Multi-tier segmentation isolating low (&lt;0.5m), medium (0.5–2m), and high canopy
+                                (&gt;2m) returns.</p>
+                        </article>
+                        <article class="parameter">
+                            <span class="parameter-label">ASPRS Class 6 &amp; Built</span>
+                            <strong>3D Building Envelopes</strong>
+                            <p>High-fidelity Digital Surface Models (DSM) preserving sharp building edges, towers, and
+                                roofs.</p>
+                        </article>
+                        <article class="parameter">
+                            <span class="parameter-label">nDSM &amp; Normalized Heights</span>
+                            <strong>True Above-Ground Height</strong>
+                            <p>Subtractive normalization ($DSM - DTM = nDSM$) delivering true object heights with
+                                sub-5cm accuracy.</p>
+                        </article>
+                    </div>
+
+                    <!-- Dual-Mode Interactive Simulator Tool -->
+                    <div class="simulator-box" aria-label="Interactive Simulator">
+                        <div class="sim-header">
+                            <div class="sim-tabs">
+                                <button type="button" id="tab-powerline" class="sim-tab-btn active"
+                                    onclick="switchSimMode('powerline')">
+                                    <i class="fa-solid fa-bolt"></i> Danger-Zone Mode
+                                </button>
+                                <button type="button" id="tab-lidar" class="sim-tab-btn"
+                                    onclick="switchSimMode('lidar')">
+                                    <i class="fa-solid fa-cube"></i> LiDAR / DTM Mode
+                                </button>
+                            </div>
+                            <span id="sim-badge"
+                                style="font: 600 .7rem 'IBM Plex Mono', monospace; color: #8fa2b4;">NERC FAC-003
+                                Calibrated</span>
+                        </div>
+
+                        <!-- Powerline Controls -->
+                        <div id="sim-controls-powerline" class="sim-controls">
+                            <div class="sim-group">
+                                <label for="voltage-select">Transmission Voltage Class</label>
+                                <select id="voltage-select" class="sim-select" onchange="calcSimulator()">
+                                    <option value="69">69 kV (Sub-Transmission)</option>
+                                    <option value="138">138 kV (Standard Transmission)</option>
+                                    <option value="230" selected>230 kV (High Voltage HV)</option>
+                                    <option value="500">500 kV (Extra High Voltage EHV)</option>
+                                </select>
+                            </div>
+                            <div class="sim-group">
+                                <label for="growth-select">Canopy Growth &amp; Hazard Profile</label>
+                                <select id="growth-select" class="sim-select" onchange="calcSimulator()">
+                                    <option value="slow">Slow Growth (Oak, Maple) - Low Risk</option>
+                                    <option value="medium" selected>Moderate Growth (Pine, Spruce) - Mid Risk</option>
+                                    <option value="rapid">Aggressive Growth (Eucalyptus, Willow) - High Risk</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- LiDAR / DTM Controls -->
+                        <div id="sim-controls-lidar" class="sim-controls" style="display: none;">
+                            <div class="sim-group">
+                                <label for="density-select">Raw Point Density (Pulse / m²)</label>
+                                <select id="density-select" class="sim-select" onchange="calcSimulator()">
+                                    <option value="low">Standard Aerial (8 - 15 pts/m²)</option>
+                                    <option value="mid" selected>High-Density Drone / UAV (30 - 60 pts/m²)</option>
+                                    <option value="ultra">Ultra-Dense Mobile / Corridor (100+ pts/m²)</option>
+                                </select>
+                            </div>
+                            <div class="sim-group">
+                                <label for="terrain-select">Terrain &amp; Canopy Complexity</label>
+                                <select id="terrain-select" class="sim-select" onchange="calcSimulator()">
+                                    <option value="open">Open / Flat Topography</option>
+                                    <option value="canopy" selected>Dense Forest &amp; Rugged Topography</option>
+                                    <option value="urban">Dense Urban / Built Infrastructure</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Output Readouts -->
+                        <div class="sim-output-grid">
+                            <div class="sim-stat">
+                                <div class="sim-stat-label" id="stat-1-label">Minimum Radial Clearance</div>
+                                <div class="sim-stat-val" id="stat-1-val">3.8 m</div>
+                            </div>
+                            <div class="sim-stat">
+                                <div class="sim-stat-label" id="stat-2-label">Annual Growth Buffer</div>
+                                <div class="sim-stat-val" id="stat-2-val">+1.2 m / yr</div>
+                            </div>
+                            <div class="sim-stat">
+                                <div class="sim-stat-label" id="stat-3-label">Recommended Inspection Cycle</div>
+                                <div class="sim-stat-val" id="stat-3-val">12 Months</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="parameter-note">
+                        * Thresholds adhere strictly to NERC FAC-003, IEEE 516 standards, and ASPRS Positional Accuracy
+                        Standards for Digital Geospatial Data.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="section alt" id="services">
+            <div class="container">
+                <div class="section-head">
+                    <div class="eyebrow">Services</div>
+                    <h2 class="section-title">Specialized geospatial offerings</h2>
+                    <p class="section-subtitle">Engineered spatial data for infrastructure asset management.</p>
+                </div>
+
+                <div class="card-grid">
+                    <article class="service-card featured">
+                        <span class="flag">Flagship</span>
+                        <img class="card-image" src="pwline2-new.jpg" alt="Powerline vegetation classification"
+                            loading="lazy">
+                        <div class="card-body">
+                            <h3>Powerline Vegetation &amp; Danger-Zone Pruning</h3>
+                            <p>Identify encroachment hazards against clearance, growth rate, and fall arcs.</p>
+                        </div>
+                    </article>
+
+                    <article class="service-card featured">
+                        <span class="flag">Flagship</span>
+                        <img class="card-image" src="3d-cad-bim-modeling.jpg" alt="Advanced LiDAR classification"
+                            loading="lazy">
+                        <div class="card-body">
+                            <h3>Advanced LiDAR Classification</h3>
+                            <p>Automated feature segmentation for terrain, civil infrastructure, and towers.</p>
+                        </div>
+                    </article>
+
+                    <article class="service-card">
+                        <img class="card-image" src="gis-spatial-analytics.webp" alt="GIS and spatial analysis"
+                            loading="lazy">
+                        <div class="card-body">
+                            <h3>Enterprise GIS &amp; Web Mapping</h3>
+                            <p>Custom geodatabase modeling, map interfaces, and operational dashboards.</p>
+                        </div>
+                    </article>
+
+                    <article class="service-card">
+                        <img class="card-image" src="dtm-new.jpg" alt="DTM bare earth extraction" loading="lazy">
+                        <div class="card-body">
+                            <h3>DTM Bare-Earth Extraction</h3>
+                            <p>High-precision bare-earth ground filtering for hydrologic and civil modeling.</p>
+                        </div>
+                    </article>
+
+                    <article class="service-card">
+                        <img class="card-image" src="dsm-new.jpg" alt="Digital surface models" loading="lazy">
+                        <div class="card-body">
+                            <h3>Digital Surface Models (DSM)</h3>
+                            <p>High-resolution canopy and structure envelope modeling.</p>
+                        </div>
+                    </article>
+
+                    <article class="service-card">
+                        <img class="card-image" src="orthophoto-uav-mapping.png" alt="Orthophoto UAV mapping"
+                            loading="lazy">
+                        <div class="card-body">
+                            <h3>Orthophoto &amp; UAV Mapping</h3>
+                            <p>Sub-centimeter true-orthomosaics and multispectral survey workflows.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="section" id="projects">
+            <div class="container">
+                <div class="section-head">
+                    <div class="eyebrow">Case Studies</div>
+                    <h2 class="section-title">Proven project outcomes</h2>
+                    <p class="section-subtitle">Delivering high-accuracy geospatial analytics across high-risk
+                        corridors.</p>
+                </div>
+
+                <div class="card-grid">
+                    <article class="project-card">
+                        <img class="card-image" src="pwline-new.jpg" alt="Powerline vegetation risk project"
+                            loading="lazy">
+                        <div class="tags">
+                            <span class="tag">Vegetation Risk</span>
+                            <span class="tag">Utility LiDAR</span>
+                        </div>
+                        <div class="card-body">
+                            <h3>500kV Corridor Vegetation Audit</h3>
+                            <p>Classified 1,200 km of transmission line, detecting over 350 high-priority pruning alerts
+                                before seasonal fire periods.</p>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <img class="card-image" src="advanced-classification.jpg" alt="Advanced classification project"
+                            loading="lazy">
+                        <div class="tags">
+                            <span class="tag">Classification</span>
+                            <span class="tag">AI Point Cloud</span>
+                        </div>
+                        <div class="card-body">
+                            <h3>Automated Structural Extraction</h3>
+                            <p>High-density classification delivering sub-5cm positional accuracy on conductor sags and
+                                tower geometries.</p>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <img class="card-image" src="enterprise-gis-web-mapping.jpg"
+                            alt="Enterprise GIS web mapping project" loading="lazy">
+                        <div class="tags">
+                            <span class="tag">Enterprise GIS</span>
+                            <span class="tag">Web GIS</span>
+                        </div>
+                        <div class="card-body">
+                            <h3>Interactive Risk Dashboard</h3>
+                            <p>Deployed a central WebGIS portal integrating field cutting crews with live inspection
+                                LiDAR layers.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIDEOS -->
+        <section class="section alt" id="videos">
+            <div class="container">
+                <div class="section-head">
+                    <div class="eyebrow">In Motion</div>
+                    <h2 class="section-title">Project Walkthroughs &amp; Demos</h2>
+                    <p class="section-subtitle">High-precision 3D classification, vegetation modeling, and asset
+                        intelligence in real-time execution.</p>
+                </div>
+
+                <div class="card-grid">
+                    <article class="video-card">
+                        <div class="video-media-wrapper">
+                            <span class="video-chip"><i class="fa-solid fa-play" aria-hidden="true"></i> Video</span>
+                            <video controls preload="metadata">
+                                <source src="./lidar-powerline-vegetation-risk.mp4" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
+                        <div class="card-body">
+                            <h3>LiDAR Powerline Vegetation Risk</h3>
+                            <p>LiDAR-based danger-zone encroachment and radial clearance buffer analysis along critical
+                                utility corridors.</p>
+                        </div>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-media-wrapper">
+                            <span class="video-chip"><i class="fa-solid fa-play" aria-hidden="true"></i> Video</span>
+                            <video controls preload="metadata">
+                                <source src="./advance-classification-2.mp4" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
+                        <div class="card-body">
+                            <h3>Advanced Classification</h3>
+                            <p>Automated point-cloud segmentation pipeline isolating conductors, towers, ground, and
+                                canopy returns.</p>
+                        </div>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-media-wrapper">
+                            <span class="video-chip"><i class="fa-solid fa-play" aria-hidden="true"></i> Video</span>
+                            <video controls preload="metadata">
+                                <source src="./powerline-classification.mp4" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
+                        <div class="card-body">
+                            <h3>Power Line Classification</h3>
+                            <p>Corridor-level point-cloud processing with precision conductor sag and structure
+                                identification.</p>
+                        </div>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-media-wrapper">
+                            <span class="video-chip"><i class="fa-solid fa-play" aria-hidden="true"></i> Video</span>
+                            <video controls preload="metadata">
+                                <source src="./substation-analysis.mp4" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
+                        <div class="card-body">
+                            <h3>Substation Analysis</h3>
+                            <p>High-density 3D spatial analytics and equipment envelope modeling for electrical
+                                substations.</p>
+                        </div>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-media-wrapper">
+                            <span class="video-chip"><i class="fa-solid fa-play" aria-hidden="true"></i> Video</span>
+                            <video controls preload="metadata">
+                                <source src="./Feature Extraction.mp4" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
+                        <div class="card-body">
+                            <h3>Feature Extraction</h3>
+                            <p>Topographic channel and terrain feature isolation extracted directly from raw LiDAR
+                                returns.</p>
+                        </div>
+                    </article>
+
+                    <article class="video-card">
+                        <div class="video-media-wrapper">
+                            <span class="video-chip"><i class="fa-solid fa-play" aria-hidden="true"></i> Video</span>
+                            <video controls preload="metadata">
+                                <source src="./advanced-classification.mp4" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
+                        <div class="card-body">
+                            <h3>Advance Classification with 3d building</h3>
+                            <p>Advanced 3D building classification and vectorization converts unorganized 3D spatial
+                                data into clean, structured geometric vectors (like polygons and shapefiles).</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="section" id="faq">
+            <div class="container">
+                <div class="section-head">
+                    <div class="eyebrow">Frequently Asked Questions</div>
+                    <h2 class="section-title">Clear insights into our capabilities</h2>
+                    <p class="section-subtitle">Learn how LiDAR, GIS, and advanced classification transform utility risk
+                        management.</p>
+                </div>
+
+                <div class="faq-list">
+                    <details class="faq-item" open>
+                        <summary>Why choose GeoProcess Consulting?</summary>
+                        <div class="faq-answer">
+                            <ul>
+                                <li><strong>Actionable intelligence:</strong> We turn complex raw point clouds into
+                                    clear, decisive field execution.</li>
+                                <li><strong>Unmatched precision:</strong> Our automated AI pipelines deliver
+                                    sub-centimeter calibration you can trust.</li>
+                                <li><strong>Deep domain expertise:</strong> We understand utility corridors and the
+                                    specific challenges of vegetation management.</li>
+                                <li><strong>Proactive cost savings:</strong> We shift your operations from expensive,
+                                    reactive fixes to predictive pruning schedules.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>What services do you offer?</summary>
+                        <div class="faq-answer">
+                            <p>We provide full-lifecycle geospatial analytics and engineering data processing,
+                                including:</p>
+                            <ul>
+                                <li><strong>Powerline Vegetation &amp; Danger-Zone Pruning:</strong> 3D encroachment,
+                                    species risk class, and tree-fall modeling.</li>
+                                <li><strong>Advanced LiDAR Classification:</strong> AI-driven segmentation for ground,
+                                    canopy, towers, conductors, and buildings.</li>
+                                <li><strong>Enterprise GIS &amp; Web Mapping:</strong> Enterprise geodatabase modeling,
+                                    custom field-app layers, and live dashboards.</li>
+                                <li><strong>DTM / DSM Extraction:</strong> Bare-earth terrain models and digital surface
+                                    canopy envelopes.</li>
+                                <li><strong>UAV &amp; Orthophoto Mapping:</strong> Sub-centimeter true-orthomosaics and
+                                    multispectral survey workflows.</li>
+                                <li><strong>3D CAD / Scan-to-BIM:</strong> Vectorized asset models ready for engineering
+                                    and design software.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>What is Danger-Zone Detection for Tree Pruning?</summary>
+                        <div class="faq-answer">
+                            <p>Danger zone detection for tree pruning near power lines using LiDAR and GIS is a digital
+                                safety system. It uses laser scans and maps to find trees that are too close to electric
+                                wires. This helps crews clear branches before they cause power outages or fires.</p>
+                            <br>
+                            <strong>How LiDAR Works:</strong>
+                            <ul>
+                                <li><strong>Light Detection:</strong> Sends laser pulses from a plane, drone, or truck
+                                    to the ground.</li>
+                                <li><strong>3D Mapping:</strong> Measures the exact distance from tree branches to power
+                                    lines.</li>
+                                <li><strong>Data Points:</strong> Creates a 3D picture of the entire utility corridor.
+                                </li>
+                            </ul>
+                            <strong>How GIS Works:</strong>
+                            <ul>
+                                <li><strong>Geographic Data:</strong> Stores the precise location of power poles, wires,
+                                    and equipment.</li>
+                                <li><strong>Spatial Analysis:</strong> Combines map data with LiDAR scans to find
+                                    problem areas.</li>
+                                <li><strong>Risk Zones:</strong> Creates a digital boundary or buffer zone around live
+                                    wires.</li>
+                            </ul>
+                            <strong>Safety and Benefits:</strong>
+                            <ul>
+                                <li><strong>Automated Alerts:</strong> Flags trees that enter the danger buffer zone.
+                                </li>
+                                <li><strong>Smart Planning:</strong> Helps workers target high-risk trees first.</li>
+                                <li><strong>Fewer Outages:</strong> Prevents branches from touching lines during storms.
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>What is Advanced Classification &amp; 3D Vectorization?</summary>
+                        <div class="faq-answer">
+                            <p>Advanced 3D building classification and vectorization converts unorganized 3D spatial
+                                data into clean, structured geometric vectors (like polygons and shapefiles).</p>
+                            <p style="margin-top: 10px;">Our automated pipeline isolates key infrastructure
+                                elements—such as towers, conductor sags, ground surfaces, and buildings—allowing
+                                utilities to export directly into GIS databases, CAD layouts, or BIM platforms for
+                                structural audits.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>How long does a typical project take?</summary>
+                        <div class="faq-answer">
+                            <p>Turnaround times depend on corridor length and data density:</p>
+                            <ul>
+                                <li><strong>Pilot Projects &amp; Risk Audits (up to 100 km):</strong> Typically
+                                    delivered within <strong>3 to 5 business days</strong>.</li>
+                                <li><strong>Full Corridor Inspections (500+ km):</strong> Usually processed and
+                                    classified in <strong>2 to 3 weeks</strong> with milestone handoffs.</li>
+                                <li><strong>Urgent / Post-Storm Audits:</strong> Fast-track priority pipelines available
+                                    for immediate danger-tree triage within <strong>24 to 48 hours</strong>.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA & ENTERPRISE AUDIT REQUEST SECTION -->
+        <section class="section alt" id="contact">
+            <div class="container">
+                <div class="cta-container">
+                    <div class="cta-info">
+                        <div class="eyebrow" style="color: var(--orange);">Initiate a Consultation</div>
+                        <h2>Ready to optimize your corridor &amp; geospatial data?</h2>
+                        <p>Connect directly with our geospatial engineers for corridor risk audits, advanced LiDAR
+                            processing scopes, or custom GIS integrations.</p>
+
+                        <div class="cta-contact-links">
+                            <a class="contact-pill" href="mailto:info@geoprocessconsulting.site">
+                                <i class="fa-solid fa-envelope"></i> info@geoprocessconsulting.site
+                            </a>
+                            <a class="contact-pill" href="https://wa.me/917205666324" target="_blank"
+                                rel="noopener noreferrer">
+                                <i class="fa-brands fa-whatsapp"></i> +91 72056 66324 (Direct Engineering Desk)
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Request Form -->
+                    <form class="audit-form" action="https://api.web3forms.com/submit" method="POST">
+                        <!-- Web3Forms Access Key: Replace with your key from web3forms.com -->
+                        <input type="hidden" name="access_key" value="1d61f6bd-ae27-4489-9507-42fe3669a549">
+
+                        <!-- Configuration Details -->
+                        <input type="hidden" name="subject" value="New Scoping & Audit Request - GeoProcess Consulting">
+                        <input type="hidden" name="from_name" value="GeoProcess Web Portal">
+
+                        <!-- Anti-Spam Honeypot (Do not fill) -->
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                        <h3>Request Project Scope &amp; Audit</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="Full Name" class="form-input"
+                                    placeholder="e.g. John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Work Email *</label>
+                                <input type="email" id="email" name="Work Email" class="form-input"
+                                    placeholder="john@utility.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="service">Service Required *</label>
+                                <select id="service" name="Service Required" class="form-select">
+                                    <option>Powerline Vegetation Analytics</option>
+                                    <option>Advanced LiDAR Classification</option>
+                                    <option>DTM / DSM Terrain Modeling</option>
+                                    <option>Enterprise GIS / Web Mapping</option>
+                                    <option>Scan-to-BIM / 3D CAD</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="corridor">Estimated Scope (km / sq km)</label>
+                                <input type="text" id="corridor" name="Estimated Scope" class="form-input"
+                                    placeholder="e.g. 250 km or 50 sq km">
+                            </div>
+                            <div class="form-group form-full">
+                                <label for="message">Project Details / Requirements</label>
+                                <textarea id="message" name="Project Requirements" class="form-textarea"
+                                    placeholder="Describe coordinate systems, point densities, line voltages, or specific danger-zone standards..."></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary form-submit-btn">
+                            Submit Scoping Request <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-title">GeoProcess Consulting</div>
+                <p style="color: #8fa0b0; font-size: 0.9rem; margin-bottom: 20px;">
+                    Precision LiDAR classification, vegetation danger-zone modeling, DTM/DSM extraction, and enterprise
+                    GIS solutions worldwide.
+                </p>
+                <ul class="footer-list">
+                    <li><a href="https://wa.me/917205666324"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                            +91 72056 66324</a></li>
+                    <li>
+                        <a href="mailto:info@geoprocessconsulting.site">
+                            <i class="fa-solid fa-envelope" aria-hidden="true"></i> info@geoprocessconsulting.site
+                        </a>
+                    </li>
+                    <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Global Geospatial Solutions Hub</li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="footer-title">Services</div>
+                <ul class="footer-list">
+                    <li><a href="#services">Powerline Vegetation Analytics</a></li>
+                    <li><a href="#services">Advanced LiDAR Classification</a></li>
+                    <li><a href="#services">Enterprise GIS &amp; Web Mapping</a></li>
+                    <li><a href="#services">DTM / DSM Terrain Modeling</a></li>
+                    <li><a href="#services">Scan-to-BIM &amp; 3D CAD Modeling</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="footer-title">Navigation</div>
+                <ul class="footer-list">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#params">Parameters</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#videos">Videos</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 GeoProcess Consulting. All rights reserved. Precision Geospatial Solutions.
+        </div>
+    </footer>
+
+    <button class="back-top" type="button" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        (() => {
+            "use strict";
+
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            // Mobile Navigation Toggle
+            const navToggle = document.querySelector(".nav-toggle");
+            const navList = document.querySelector(".nav-list");
+            const navLinks = document.querySelectorAll(".nav-list a");
+
+            const setNavState = (open) => {
+                navList?.classList.toggle("open", open);
+                navToggle?.setAttribute("aria-expanded", String(open));
+                navToggle?.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+                const icon = navToggle?.querySelector("i");
+                if (icon) {
+                    icon.classList.toggle("fa-bars", !open);
+                    icon.classList.toggle("fa-xmark", open);
+                }
+            };
+
+            navToggle?.addEventListener("click", () => {
+                setNavState(!navList.classList.contains("open"));
+            });
+
+            navLinks.forEach((link) => link.addEventListener("click", () => setNavState(false)));
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") setNavState(false);
+            });
+
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 820) setNavState(false);
+            }, { passive: true });
+
+            // Hero Slider
+            const slider = document.querySelector("#hero-slider");
+            const slides = [...document.querySelectorAll(".hero-slide")];
+            const dots = [...document.querySelectorAll(".hero-dot")];
+            const prevBtn = document.querySelector(".hero-prev");
+            const nextBtn = document.querySelector(".hero-next");
+            let current = 0;
+            let timer = null;
+
+            const renderSlide = (index) => {
+                if (!slides.length) return;
+                current = (index + slides.length) % slides.length;
+
+                slides.forEach((slide, i) => {
+                    const active = i === current;
+                    slide.classList.toggle("is-active", active);
+                    slide.setAttribute("aria-hidden", String(!active));
+                });
+
+                dots.forEach((dot, i) => {
+                    const active = i === current;
+                    dot.classList.toggle("is-active", active);
+                    dot.setAttribute("aria-selected", String(active));
+                });
+            };
+
+            const stopAutoplay = () => {
+                if (timer) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+            };
+
+            const startAutoplay = () => {
+                stopAutoplay();
+                if (reduceMotion || slides.length < 2) return;
+                timer = setInterval(() => renderSlide(current + 1), 6500);
+            };
+
+            prevBtn?.addEventListener("click", () => {
+                renderSlide(current - 1);
+                startAutoplay();
+            });
+
+            nextBtn?.addEventListener("click", () => {
+                renderSlide(current + 1);
+                startAutoplay();
+            });
+
+            dots.forEach((dot, idx) => {
+                dot.addEventListener("click", () => {
+                    renderSlide(idx);
+                    startAutoplay();
+                });
+            });
+
+            // Touch Swipe Support
+            let touchStartX = 0;
+            slider?.addEventListener("touchstart", (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                stopAutoplay();
+            }, { passive: true });
+
+            slider?.addEventListener("touchend", (e) => {
+                const touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 40) {
+                    if (diff > 0) renderSlide(current + 1);
+                    else renderSlide(current - 1);
+                }
+                startAutoplay();
+            }, { passive: true });
+
+            slider?.addEventListener("mouseenter", stopAutoplay);
+            slider?.addEventListener("mouseleave", startAutoplay);
+            slider?.addEventListener("focusin", stopAutoplay);
+            slider?.addEventListener("focusout", (e) => {
+                if (!slider.contains(e.relatedTarget)) startAutoplay();
+            });
+
+            renderSlide(0);
+            document.body.classList.add("slider-initialized");
+            startAutoplay();
+
+            // Back to Top Button
+            const backTop = document.querySelector(".back-top");
+            const updateBackTop = () => {
+                backTop?.classList.toggle("visible", window.scrollY > 600);
+            };
+
+            window.addEventListener("scroll", updateBackTop, { passive: true });
+            backTop?.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+            });
+
+            // Intersection Observer for Active Nav Link
+            const sections = document.querySelectorAll("main section[id]");
+            if ("IntersectionObserver" in window && sections.length) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        navLinks.forEach((link) => {
+                            link.removeAttribute("aria-current");
+                            if (link.getAttribute("href") === `#${entry.target.id}`) {
+                                link.setAttribute("aria-current", "page");
+                            }
+                        });
+                    });
+                }, { rootMargin: "-30% 0px -60% 0px", threshold: 0 });
+
+                sections.forEach((sec) => observer.observe(sec));
+            }
+        })();
+
+        // Dual-Mode Interactive Simulator Engine (Global Functions)
+        let currentSimMode = "powerline";
+
+        function switchSimMode(mode) {
+            currentSimMode = mode;
+            const tabP = document.getElementById("tab-powerline");
+            const tabL = document.getElementById("tab-lidar");
+            const ctrlP = document.getElementById("sim-controls-powerline");
+            const ctrlL = document.getElementById("sim-controls-lidar");
+            const badge = document.getElementById("sim-badge");
+
+            if (mode === "powerline") {
+                tabP.classList.add("active");
+                tabL.classList.remove("active");
+                ctrlP.style.display = "grid";
+                ctrlL.style.display = "none";
+                badge.textContent = "NERC FAC-003 Calibrated";
+                document.getElementById("stat-1-label").textContent = "Minimum Radial Clearance";
+                document.getElementById("stat-2-label").textContent = "Annual Growth Buffer";
+                document.getElementById("stat-3-label").textContent = "Recommended Inspection Cycle";
+            } else {
+                tabL.classList.add("active");
+                tabP.classList.remove("active");
+                ctrlL.style.display = "grid";
+                ctrlP.style.display = "none";
+                badge.textContent = "ASPRS Positional Standards";
+                document.getElementById("stat-1-label").textContent = "Achievable DTM Grid Cell";
+                document.getElementById("stat-2-label").textContent = "Vertical Accuracy (RMSEz)";
+                document.getElementById("stat-3-label").textContent = "Classification Confidence";
+            }
+            calcSimulator();
+        }
+
+        function calcSimulator() {
+            const stat1 = document.getElementById("stat-1-val");
+            const stat2 = document.getElementById("stat-2-val");
+            const stat3 = document.getElementById("stat-3-val");
+
+            if (currentSimMode === "powerline") {
+                const v = document.getElementById("voltage-select").value;
+                const g = document.getElementById("growth-select").value;
+
+                let clearance = "3.8 m";
+                let buffer = "+1.2 m / yr";
+                let cycle = "12 Months";
+
+                if (v === "69") clearance = "2.6 m";
+                else if (v === "138") clearance = "3.1 m";
+                else if (v === "230") clearance = "3.8 m";
+                else if (v === "500") clearance = "5.5 m";
+
+                if (g === "slow") { buffer = "+0.6 m / yr"; cycle = "18 Months"; }
+                else if (g === "medium") { buffer = "+1.2 m / yr"; cycle = "12 Months"; }
+                else if (g === "rapid") { buffer = "+2.4 m / yr"; cycle = "6 Months (Priority Alert)"; }
+
+                stat1.textContent = clearance;
+                stat2.textContent = buffer;
+                stat3.textContent = cycle;
+            } else {
+                const density = document.getElementById("density-select").value;
+                const terrain = document.getElementById("terrain-select").value;
+
+                let grid = "0.20 m (20 cm)";
+                let accuracy = "≤ 3.5 cm";
+                let conf = "99.2% Automated";
+
+                if (density === "low") {
+                    grid = terrain === "open" ? "0.50 m (50 cm)" : "1.00 m (100 cm)";
+                    accuracy = terrain === "open" ? "≤ 5.0 cm" : "≤ 8.5 cm";
+                    conf = "96.5% Automated";
+                } else if (density === "mid") {
+                    grid = terrain === "open" ? "0.10 m (10 cm)" : (terrain === "urban" ? "0.15 m (15 cm)" : "0.20 m (20 cm)");
+                    accuracy = terrain === "open" ? "≤ 2.5 cm" : "≤ 3.5 cm";
+                    conf = "99.2% Automated";
+                } else if (density === "ultra") {
+                    grid = terrain === "open" ? "0.05 m (5 cm)" : "0.10 m (10 cm)";
+                    accuracy = "≤ 1.5 cm";
+                    conf = "99.8% Automated";
+                }
+
+                stat1.textContent = grid;
+                stat2.textContent = accuracy;
+                stat3.textContent = conf;
+            }
+        }
+    </script>
+</body>
+
+</html>
