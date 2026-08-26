@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description"
+        content="Book a consultation with GeoProcess Consulting for LiDAR, GIS, photogrammetry, DTM/DSM, BIM and geospatial analytics.">
+
+    <meta name="theme-color" content="#06111d">
+
+    <title>Book a Consultation | GeoProcess Consulting</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Main Website CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* =========================================================
+           BOOKING SECTION & STYLING
+           ========================================================= */
+
+        .booking-section {
+            padding: 80px 0 100px;
+            background: #f4f7fa;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .booking-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .booking-intro {
+            max-width: 760px;
+            margin: 0 auto 40px;
+            text-align: center;
+        }
+
+        .booking-intro h2 {
+            margin-bottom: 14px;
+            color: #06111d;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+        }
+
+        .booking-intro p {
+            color: #576574;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Booking Main Card */
+        .booking-card {
+            background: #ffffff;
+            border: 1px solid #dde4ea;
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(10, 20, 32, 0.08);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .booking-step h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #06111d;
+            margin-bottom: 14px;
+        }
+
+        /* Form Inputs & Selects */
+        .booking-input,
+        #booking-form input,
+        #booking-form select,
+        #booking-form textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid #dce4ec;
+            border-radius: 10px;
+            background: #fcfdfe;
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: #06111d;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .booking-input:focus,
+        #booking-form input:focus,
+        #booking-form select:focus,
+        #booking-form textarea:focus {
+            border-color: #ff6a2b;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(255, 106, 43, 0.12);
+        }
+
+        #booking-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        #booking-form textarea,
+        #booking-form .booking-submit {
+            grid-column: 1 / -1;
+        }
+
+        /* Time Slot Buttons Grid */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .time-slots p {
+            grid-column: 1 / -1;
+            color: #718096;
+            font-size: 0.95rem;
+            margin: 0;
+            padding: 10px 0;
+        }
+
+        .time-slot {
+            padding: 12px 10px;
+            background: #f8fafc;
+            border: 1.5px solid #dce4ec;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .time-slot:hover {
+            border-color: #ff6a2b;
+            background: #fff8f5;
+            color: #ff6a2b;
+        }
+
+        .time-slot.selected {
+            background: #ff6a2b !important;
+            border-color: #ff6a2b !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(255, 106, 43, 0.35);
+        }
+
+        /* Submit Button */
+        .booking-submit {
+            padding: 15px 30px;
+            background: #ff6a2b;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .booking-submit:hover:not(:disabled) {
+            background: #e65618;
+            transform: translateY(-1px);
+        }
+
+        .booking-submit:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Status & Alert Messages */
+        .booking-message {
+            display: none;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .booking-message:not(:empty) {
+            display: block;
+        }
+
+        .booking-message.loading {
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            color: #3730a3;
+        }
+
+        .booking-message.success {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        .booking-message.error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        /* Small information cards */
+        .booking-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .booking-info-card {
+            padding: 22px;
+            background: #ffffff;
+            border: 1px solid #dde4ea;
+            border-radius: 14px;
+        }
+
+        .booking-info-card strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #06111d;
+            font-size: 1rem;
+        }
+
+        .booking-info-card span {
+            color: #576574;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .booking-icon {
+            display: inline-grid;
+            width: 42px;
+            height: 42px;
+            margin-bottom: 14px;
+            place-items: center;
+            border-radius: 10px;
+            background: #ff6a2b;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        @media (max-width: 768px) {
+            .booking-section {
+                padding: 60px 0 70px;
+            }
+
+            .booking-card {
+                padding: 24px;
+            }
+
+            #booking-form {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-nav">
+        <div class="container nav-inner">
+            <a class="brand" href="index.html" aria-label="GeoProcess Consulting Home">
+                <img src="assets/images/Cover.png" alt="GeoProcess Consulting" width="50" height="50">
+                <span>
+                    <span class="brand-name">GeoProcess Consulting</span>
+                    <span class="brand-sub">Your Data. Processed &amp; To Perfection.</span>
+                </span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+            <nav aria-label="Primary navigation">
+                <ul class="nav-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="videos.html">Videos</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a class="nav-cta" href="booking.html" aria-current="page">Book Consultation</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- PAGE HERO -->
+        <section class="page-hero">
+            <div class="container">
+                <div class="eyebrow">Online Consultation</div>
+                <h1>Pick a date. Pick a time. <span>Confirm booking.</span></h1>
+                <p>Book a consultation directly through our online scheduling system. Choose an available date and time
+                    that works for you.</p>
+            </div>
+        </section>
+
+        <!-- BOOKING SECTION -->
+        <section class="booking-section">
+            <div class="container booking-container">
+                <div class="booking-intro">
+                    <div class="eyebrow">GeoProcess Consulting</div>
+                    <h2>Schedule Your Consultation</h2>
+                    <p>Select an available time below. After completing the booking form, the appointment will be added
+                        to the calendar and you will receive a confirmation.</p>
+                </div>
+
+                <div class="booking-card">
+                    <div class="booking-step">
+                        <h3>1. Choose a Date</h3>
+                        <input type="date" id="booking-date" class="booking-input">
+                    </div>
+
+                    <div class="booking-step">
+                        <h3>2. Choose a Time</h3>
+                        <div id="time-slots" class="time-slots">
+                            <p>Select a date to see available times.</p>
+                        </div>
+                    </div>
+
+                    <div class="booking-step">
+                        <h3>3. Your Details</h3>
+                        <form id="booking-form">
+                            <input type="text" id="customer-name" placeholder="Full Name" required>
+                            <input type="email" id="customer-email" placeholder="Email Address" required>
+                            <input type="tel" id="customer-phone" placeholder="Phone / WhatsApp">
+                            <input type="text" id="customer-company" placeholder="Company">
+
+                            <select id="customer-service" required>
+                                <option value="">Select Service</option>
+                                <option>LiDAR Data Processing &amp; Classification</option>
+                                <option>GIS &amp; Spatial Data Management</option>
+                                <option>3D Mapping &amp; 3D Geospatial Modeling</option>
+                                <option>Photogrammetry &amp; Aerial Mapping</option>
+                                <option>Point Cloud Processing &amp; Quality Assurance</option>
+                                <option>DTM, DSM &amp; DEM Generation</option>
+                                <option>BIM Modeling — LOD 400 &amp; LOD 500</option>
+                                <option>Geospatial Data Automation &amp; Analysis</option>
+                                <option>Powerline Vegetation Danger-Zone Analytics</option>
+                            </select>
+
+                            <textarea id="customer-details" rows="4"
+                                placeholder="Tell us about your project..."></textarea>
+
+                            <button type="submit" class="booking-submit">Confirm Booking</button>
+                        </form>
+                    </div>
+
+                    <div id="booking-message" class="booking-message"></div>
+                </div>
+
+                <!-- BOOKING INFORMATION CARDS -->
+                <div class="booking-info-grid">
+                    <div class="booking-info-card">
+                        <div class="booking-icon">01</div>
+                        <strong>Choose a Service</strong>
+                        <span>Select the GeoProcess service you would like to discuss during the consultation.</span>
+                    </div>
+
+                    <div class="booking-info-card">
+                        <div class="booking-icon">02</div>
+                        <strong>Choose a Time</strong>
+                        <span>Select an available date and consultation time from the calendar.</span>
+                    </div>
+
+                    <div class="booking-info-card">
+                        <div class="booking-icon">03</div>
+                        <strong>Confirm Booking</strong>
+                        <span>Enter your details and confirm the appointment through Google Calendar.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-title">GeoProcess Consulting</div>
+                <p style="color:#8fa0b0; max-width:430px; margin-bottom:20px;">
+                    Precision LiDAR classification, vegetation danger-zone modeling, DTM/DSM extraction, enterprise GIS,
+                    photogrammetry, point-cloud QA and engineering-ready geospatial deliverables.
+                </p>
+            </div>
+
+            <div>
+                <div class="footer-title">Services</div>
+                <ul class="footer-list">
+                    <li><a href="services.html">LiDAR Processing &amp; Classification</a></li>
+                    <li><a href="services.html">GIS &amp; Spatial Data Management</a></li>
+                    <li><a href="services.html">3D Mapping &amp; Modeling</a></li>
+                    <li><a href="services.html">Photogrammetry &amp; Aerial Mapping</a></li>
+                    <li><a href="services.html">DTM / DSM / DEM</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="footer-title">Connect</div>
+                <ul class="footer-list">
+                    <li><a href="https://wa.me/917205666324" target="_blank" rel="noopener noreferrer">WhatsApp: +91
+                            72056 66324</a></li>
+                    <li><a href="mailto:contact@geoprocessconsulting.site">contact@geoprocessconsulting.site</a></li>
+                    <li>Global Geospatial Solutions Hub</li>
+                    <li><a href="booking.html">Schedule a consultation →</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © <span data-year>2026</span> GeoProcess Consulting. All rights reserved.
+        </div>
+    </footer>
+
+    <button class="back-top" type="button" aria-label="Back to top">↑</button>
+
+    <script src="js/main.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+
+</html>
