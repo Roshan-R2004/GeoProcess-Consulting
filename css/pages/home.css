@@ -1,0 +1,142 @@
+/* SVG Radar Logo Styles */
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+        }
+
+        .brand-mark .pulse {
+            transform-origin: 32px 32px;
+            animation: radarPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes radarPulse {
+
+            0%,
+            100% {
+                r: 5;
+                opacity: 1;
+            }
+
+            50% {
+                r: 8;
+                opacity: 0.5;
+            }
+        }
+
+
+        .faq-list {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            padding: 0 20px;
+            box-shadow: 0 5px 20px rgba(4, 15, 28, .04);
+        }
+
+        .faq-item summary {
+            padding: 19px 0;
+            font-weight: 800;
+            cursor: pointer;
+            color: var(--navy-900);
+        }
+
+        .faq-answer {
+            padding: 0 0 20px;
+            color: var(--muted);
+        }
+
+        .faq-answer li {
+            margin: 7px 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center
+        }
+
+        .contact-mail-wrap {
+            position: relative;
+            display: inline-block
+        }
+
+        .contact-mail-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            min-width: 220px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            box-shadow: 0 14px 35px rgba(4, 15, 28, .15);
+            padding: 7px;
+            z-index: 1000
+        }
+
+        .contact-mail-wrap.open .contact-mail-menu {
+            display: block
+        }
+
+        .contact-mail-menu a {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--navy-900);
+            text-decoration: none;
+            font-weight: 700;
+            white-space: nowrap
+        }
+
+        .contact-mail-menu a:hover {
+            background: #f3f6f8
+        }
+
+        .contact-social-btn {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 7px
+        }
+
+        @media(max-width:640px) {
+            .contact-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                width: 100%
+            }
+
+            .contact-mail-wrap,
+            .contact-actions>a,
+            .contact-mail-wrap>.contact-social-btn {
+                width: 100%
+            }
+
+            .contact-social-btn {
+                justify-content: center
+            }
+
+            .contact-mail-menu {
+                left: 0;
+                right: auto;
+                width: 100%;
+                min-width: 0
+            }
+        }
+
+.home-hero-bg{background-image:url("../../assets/images/powerline-new.png")}
+.actions-centered{justify-content:center}
