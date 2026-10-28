@@ -14,7 +14,7 @@ This version keeps the supplied website content and assets while separating the 
 - `assets/images/` — supplied project imagery
 - `assets/videos/` — supplied demonstration videos
 - `assets/brand/logo-mark.png` — compact mark derived from the supplied master logo for future favicon/brand use
-- `archive/study-reference-legacy.html` — preserved legacy Study/Source Library artifact
+- `archive/study-reference-legacy.html` — redirects to the merged advanced technical reference inside `study.html`
 
 ## Design rules
 
@@ -28,3 +28,9 @@ This version keeps the supplied website content and assets while separating the 
 ## Booking
 
 The Google Calendar booking component still needs the real Google booking URL/embed configuration. No private or guessed credentials were inserted.
+
+
+24/7 BOOKING NOTE
+The booking backend is configured for 24/7 availability and all 7 days.
+The visitor's browser/device timezone is detected automatically.
+A VPN changes IP routing, not the browser timezone, so VPN testing may still show the device timezone.
