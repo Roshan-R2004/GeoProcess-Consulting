@@ -1,4 +1,7 @@
-/* GeoProcess Consulting — public booking endpoint */
+/* GeoProcess Consulting - public booking endpoint */
 window.GEOPROCESS_BOOKING = {
-  apiUrl: "https://script.google.com/macros/s/AKfycbzsMxwMMyOey_Nqe783GViWusNQU1U-hLY2CEDYPsbEEEFqXhFd9mJikizDLIp1z5nk/exec"
+  // Existing working booking/availability Apps Script deployment.
+  apiUrl: "https://script.google.com/macros/s/AKfycbzVSoIyLwVIO8qA0nYH_981tmQXNLDY-aRKAe08x7_4u077ZmUHQ_QDHPYvUKkwxMtT/exec",
+  // Google Calendar uses India Standard Time as the canonical business timezone.
+  timeZone: "Asia/Kolkata"
 };
